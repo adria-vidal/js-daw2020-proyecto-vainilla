@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/Proyecto_Vainilla/PROYECTO/CSS/estilopantalla.css" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="principal">
+    <form id="formpreguntas">
+      <h2>Preguntas</h2>
+      <br />
+      <label for="pregunta">Pregunta:</label><br />
+      <textarea id="pregunta" name="pregunta" cols="40" rows="10"
+        placeholder="Escribe aquí tu pregunta..."></textarea><br />
+
+      <br />
+      <p>
+        <label for="true">Verdadero</label>
+        <input type="radio" name="res" value="true" />
+        <label for="false">Falso</label>
+        <input type="radio" name="res" value="false" />
+      </p>
+      <br />
+      <p>
+        <input type="number" min="1" max="9" name="puntuacion" id="puntuacion" placeholder="Puntuación" />
+      </p>
+      <br />
+      <br />
+      <input type="reset" value="Atrás" id="atras" />
+      <input type="submit" value="Guardar" id="guardar" />
+    </form>
+    <div id="container">
+      <p id="cargando">Cargando respuestas..</p>
+      
+    </div>
+    <div id="error"></div>
+  </div>
+
+  <script type="module" src="/Proyecto_Vainilla/PROYECTO/SCRIPTS/pantalla3.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+</body>
+
+</html>
