@@ -74,13 +74,13 @@ textoEmail.addEventListener(
         };
         saveUserCookie(textoEmail.value, datosUser);
 
-        var redirecciona = '/Proyecto_Vainilla/PROYECTO/HTML/pantalla2.html';
+        var redirecciona = '/PROYECTO/HTML/pantalla2.html';
         location.href = redirecciona;
 
         //en caso de que exista, solo modificamos añadiendo el email
       } else {
         setUserActual(textoEmail.value);
-        var redirecciona = '/Proyecto_Vainilla/PROYECTO/HTML/pantalla2.html';
+        var redirecciona = '/PROYECTO/HTML/pantalla2.html';
         location.href = redirecciona;
       }
     }

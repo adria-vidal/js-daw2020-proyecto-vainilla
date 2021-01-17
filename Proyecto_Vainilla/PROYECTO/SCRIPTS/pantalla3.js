@@ -34,7 +34,7 @@ buttonBack.addEventListener(
   'click',
   (event) => {
     event.preventDefault();
-    var redirecciona = '/Proyecto_Vainilla/PROYECTO/HTML/pantalla2.html';
+    var redirecciona = '/PROYECTO/HTML/pantalla2.html';
     location.href = redirecciona;
   },
   true
