@@ -12,7 +12,7 @@ function getFechaActual() {
 }
 
 /**
- *Actualiozamos fecha y hora cuando entre el usuario
+ *Actualizamos fecha y hora cuando entre el usuario
  */
 function updateFecha(usuarioActual) {
   let fechaAhora = getFechaActual();

@@ -1,42 +1,42 @@
 /**
  * Importamos las funciones necesarias del documento moduleCookieFecha
  */
-"use strict";
+'use strict';
 import {
   getDatosCookie,
   saveDatosCookie,
   getUsuarioActual,
   cargarPreguntas,
   updateFecha,
-} from "./moduleCookieFecha.js";
+} from './moduleCookieFecha.js';
 
 let time = 5000;
 /** Obtenemos el usuario */
 let userActual = getUsuarioActual();
 
 /** Reseteamos formulario */
-let formulario = document.getElementById("formulario");
+let formulario = document.getElementById('formulario');
 formulario.reset();
 
-let inTitulo = document.getElementById("txtTitulo");
-let inPuntuacion = document.getElementById("txtPuntuacion");
-let button_grabar = document.getElementById("btGrabar");
-let button_atras = document.getElementById("btAtras");
-let contPreguntas = document.getElementById("wrapper-Pregunta");
+let inTitulo = document.getElementById('txtTitulo');
+let inPuntuacion = document.getElementById('txtPuntuacion');
+let button_grabar = document.getElementById('btGrabar');
+let button_atras = document.getElementById('btAtras');
+let contPreguntas = document.getElementById('wrapper-Pregunta');
 
 /** Evento para cargar las preguntas */
-window.addEventListener("load", crearTabla);
+window.addEventListener('load', crearTabla);
 
 /** Actualizamos fecha/hora cuando entre el user */
-window.addEventListener("load", updateFecha(userActual));
+window.addEventListener('load', updateFecha(userActual));
 
-/** Evento para guardar pregunta cuando se haga click */
-button_grabar.addEventListener("click", agregarPregunta);
+/** Evento para agregar y guardar pregunta cuando se haga click */
+button_grabar.addEventListener('click', agregarPregunta);
 
 /** Evento para volver a pantalla2 al pulsar btn Atras  */
-button_atras.addEventListener("click", (e) => {
+button_atras.addEventListener('click', (e) => {
   e.preventDefault();
-  var redirecciona = "../HTML/pantalla2.html";
+  var redirecciona = '../HTML/pantalla2.html';
   location.href = redirecciona;
 });
 
@@ -50,13 +50,13 @@ function rowPreguntas(nRows = 0, datos, tabla) {
     let nRows = datos.preguntas.length;
 
     for (let i = 0; i < nRows; i++) {
-      let newRow = document.createElement("tr");
+      let newRow = document.createElement('tr');
 
       /** Columnas */
-      let newCellTitulo = document.createElement("td");
-      let newCellRespuesta = document.createElement("td");
-      let newCellPuntuacion = document.createElement("td");
-      let newlastCellState = document.createElement("td");
+      let newCellTitulo = document.createElement('td');
+      let newCellRespuesta = document.createElement('td');
+      let newCellPuntuacion = document.createElement('td');
+      let newlastCellState = document.createElement('td');
 
       /** Asignamos datos de la cookie en las celdas */
       newCellTitulo.textContent = datos.preguntas[i].titulo;
@@ -76,32 +76,32 @@ function rowPreguntas(nRows = 0, datos, tabla) {
   }
 }
 /**
- * Funcion para agregar una pregunta a la tabla y la cookie del usuario actual
+ * Funcion para agregar una pregunta a la tabla y a la cookie del usuario actual
  */
 function agregarPregunta(event) {
   /** Eliminamos accion por defecto  */
   event.preventDefault();
 
-  let tabla = document.getElementById("tablaPreguntas");
+  let tabla = document.getElementById('tablaPreguntas');
 
-  let rowAdd = document.createElement("tr");
+  let rowAdd = document.createElement('tr');
 
-  let cTitulo = document.createElement("td");
-  let cRespuesta = document.createElement("td");
-  let cPuntuacion = document.createElement("td");
-  let cState = document.createElement("td");
+  let cTitulo = document.createElement('td');
+  let cRespuesta = document.createElement('td');
+  let cPuntuacion = document.createElement('td');
+  let cState = document.createElement('td');
 
   /** Obtenemos las respuestas del formulario */
-  let inTitulo = document.getElementById("txtTitulo").value;
-  let radioRespuesta = document.querySelector("input[name=respuesta]:checked")
+  let inTitulo = document.getElementById('txtTitulo').value;
+  let radioRespuesta = document.querySelector('input[name=respuesta]:checked')
     .value;
-  let inPuntuacion = document.getElementById("txtPuntuacion").value;
+  let inPuntuacion = document.getElementById('txtPuntuacion').value;
 
   /** Agregamos la respuesta a cada celda */
   cTitulo.textContent = inTitulo;
   cRespuesta.textContent = radioRespuesta;
   cPuntuacion.innerHTML = inPuntuacion;
-  cState.textContent = "Guardando...";
+  cState.textContent = 'Guardando...';
 
   rowAdd.appendChild(cTitulo);
   rowAdd.appendChild(cRespuesta);
@@ -118,29 +118,29 @@ function agregarPregunta(event) {
         titulo: inTitulo,
         respuesta: radioRespuesta,
         puntuacion: inPuntuacion,
-        estado: "OK",
+        estado: 'OK',
       };
       datosUsuario.preguntas.push(pregunta);
 
       try {
         saveDatosCookie(datosUsuario, userActual);
-        cState.textContent = "OK";
+        cState.textContent = 'OK';
       } catch (error) {
-        cState.textContent = "Ha surgido error al guardar";
+        cState.textContent = 'Ha surgido error al guardar';
       }
 
       /** Seleccion ultima celda del State */
       let lastCellState = document.querySelector(
-        "#tablaPreguntas tr:last-child td:last-child"
+        '#tablaPreguntas tr:last-child td:last-child'
       );
 
       /** estará deshabilitado el boton atras, mientras la celda no se encuentre en OK */
-      if (lastCellState.textContent != "OK") button_atras.disabled = true;
+      if (lastCellState.textContent != 'OK') button_atras.disabled = true;
       else button_atras.disabled = false;
     })
     .catch((error) => {
       let mensaje = error.message;
-      let divError = document.getElementById("error");
+      let divError = document.getElementById('error');
       divError.textContent = mensaje;
     });
 
@@ -156,40 +156,40 @@ function crearTabla() {
   button_grabar.disabled = true;
 
   try {
-    //Obtiene una promsa de la cookie con retraso de 5 segundos (TRUE)
+    /** Obtenemos la promesa con un retraso de 5s */
     let cargarpregunta = cargarPreguntas(true, time, userActual);
 
-    //Si la peticion a la cookie sale bien se crea la tabla con las preguntas
+    /** Si ha ido OK, creamos tabla */
     cargarpregunta.then((datos) => {
       contPreguntas.removeChild(
-        document.querySelector("article#wrapper-Pregunta h2#cargando")
+        document.querySelector('article#wrapper-Pregunta h2#cargando')
       );
 
-      let tabla = document.createElement("table");
+      let tabla = document.createElement('table');
 
-      tabla.setAttribute("style", "border:2px solid black");
-      tabla.setAttribute("id", "tablaPreguntas");
+      tabla.setAttribute('style', 'border:2px solid black');
+      tabla.setAttribute('id', 'tablaPreguntas');
 
-      let colCabecera = document.createElement("tr");
-      colCabecera.style.backgroundColor = "lightblue";
+      let colCabecera = document.createElement('tr');
+      colCabecera.style.backgroundColor = 'lightblue';
 
-      let cellTitulo = document.createElement("td");
-      cellTitulo.textContent = "TITULO";
-      cellTitulo.style.padding = "2rem";
-      let cellRespuesta = document.createElement("td");
-      cellRespuesta.textContent = "RESPUESTA";
-      cellRespuesta.style.padding = "2rem";
-      let cellPuntuacion = document.createElement("td");
-      cellPuntuacion.textContent = "PUNTUACION";
-      cellPuntuacion.style.padding = "2rem";
-      let celdaEstado = document.createElement("td");
-      celdaEstado.textContent = "ESTADO";
-      celdaEstado.style.padding = "2rem";
+      let cellTitulo = document.createElement('td');
+      cellTitulo.textContent = 'TITULO';
+      cellTitulo.style.padding = '2rem';
+      let cellRespuesta = document.createElement('td');
+      cellRespuesta.textContent = 'RESPUESTA';
+      cellRespuesta.style.padding = '2rem';
+      let cellPuntuacion = document.createElement('td');
+      cellPuntuacion.textContent = 'PUNTUACION';
+      cellPuntuacion.style.padding = '2rem';
+      let cellState = document.createElement('td');
+      cellState.textContent = 'ESTADO';
+      cellState.style.padding = '2rem';
 
       colCabecera.appendChild(cellTitulo);
       colCabecera.appendChild(cellRespuesta);
       colCabecera.appendChild(cellPuntuacion);
-      colCabecera.appendChild(celdaEstado);
+      colCabecera.appendChild(cellState);
 
       tabla.appendChild(colCabecera);
       contPreguntas.appendChild(tabla);
@@ -205,29 +205,29 @@ function crearTabla() {
     });
   } catch (error) {
     let mensaje = error;
-    let divError = document.getElementById("error");
+    let divError = document.getElementById('error');
     divError.textContent = mensaje;
   }
 }
 
 /** Evento para comprobar los campos */
-inPuntuacion.addEventListener("keyup", checkRespuesta);
-inTitulo.addEventListener("keyup", checkRespuesta);
+inPuntuacion.addEventListener('keyup', checkRespuesta);
+inTitulo.addEventListener('keyup', checkRespuesta);
 
 /**
  * Funcion para comprobar si estan rellenos los campos
  * para habilitar o deshabiliotar el boton de grabar
  */
 function checkRespuesta() {
-  let inTitulo = document.getElementById("txtTitulo").value;
-  let inPuntuacion = document.getElementById("txtPuntuacion").value;
-  let radioRespuesta = document.querySelector("input[name=respuesta]:checked");
+  let inTitulo = document.getElementById('txtTitulo').value;
+  let inPuntuacion = document.getElementById('txtPuntuacion').value;
+  let radioRespuesta = document.querySelector('input[name=respuesta]:checked');
 
   if (
-    inTitulo == "" ||
+    inTitulo == '' ||
     inTitulo === undefined ||
     radioRespuesta === null ||
-    inPuntuacion == "" ||
+    inPuntuacion == '' ||
     inPuntuacion === undefined
   ) {
     button_grabar.disabled = true;
