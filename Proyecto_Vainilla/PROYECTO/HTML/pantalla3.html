@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <title>Document</title>
     <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="../CSS/estilopantalla.css">
-    
+</head>    
 <body>
     <main >
         <form  method="post" action="#" id="formulario">
@@ -21,21 +21,23 @@
             </p>
             <p>
                 <label for="puntuacion">Puntuacion</label>
-                <input type="number" max="9" min="1" id="txtPuntuacion">
+                <input type="text" max="9" min="1" id="txtPuntuacion">
             </p>
-            
-            <button id="btnAtras">Atras</button>
-            <button id="btnGrabar">Grabar</button>
+            <br>
+            <button id="btAtras">Atras</button>
+            <button id="btGrabar">Grabar</button>
+            <br>
+            <br>
             <br>
             <br>
         </form>
-            <section id="wrapper-Pregunta">
-                <h1 id="cargandoPreguntas">Cargando preguntas...</h1>
-            </section>
+            <article id="wrapper-Pregunta">
+                <h2 id="cargando">Cargando preguntas...</h2>
+            </article>
             <div id="mensajeError"></div>
     </main>
 
-  <script type="module" src="/Proyecto_Vainilla/PROYECTO/SCRIPTS/pantalla3.js"></script>
+  <script type="module" src="../Proyecto_Vainilla/PROYECTO/SCRIPTS/pantalla3.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 </body>
 

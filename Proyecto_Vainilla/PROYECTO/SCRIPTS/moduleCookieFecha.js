@@ -1,70 +1,103 @@
 /**
- * Creamos modulo y exportamos las funciones para su utilizacion en los
- * otros archivos JS
+ *Modulo para crear la funciones necesarias para el proyecto
  * Funcion para retornar fecha actual
  */
-function getFecha() {
+function getFechaActual() {
   let hoy = new Date();
   let fecha =
-    hoy.getDate() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getFullYear();
-  let hora = hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getSeconds();
-  let fechaActual = fecha + ' ' + hora;
+    hoy.getDate() + "-" + (hoy.getMonth() + 1) + "-" + hoy.getFullYear();
+  let hora = hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
+  let fechaActual = fecha + " " + hora;
   return fechaActual;
 }
+
 /**
- * Actualizacion de la fecha y la hora por la actual
+ *Actualiozamos fecha y hora cuando entre el usuario
  */
-function updateFecha(userActual) {
-  let fechaNow = getFecha();
+function updateFecha(usuarioActual) {
+  let fechaAhora = getFechaActual();
 
-  //Obtenemos cookie del usuario conectado
-  let infoUsuario = Cookies.get(userActual);
-
-  //convertimos para poder modificarlo
+  /** Obtenemos la cookie del usuario */
+  let infoUsuario = Cookies.get(usuarioActual);
+  /** operaciones con JSON para poder modificar */
   let objUsuario = JSON.parse(infoUsuario);
-  objUsuario.fechaIn = fechaNow;
-  let stringUsuario = JSON.stringify(objUsuario);
+  objUsuario.fechaEntrada = fechaAhora;
+  let strUsuario = JSON.stringify(objUsuario);
 
-  //Guardo de nuevo la cookie
-  Cookies.set(userActual, stringUsuario, { expires: 7 });
+  /** Guardamos cookie */
+  Cookies.set(usuarioActual, strUsuario, { expires: 7 });
 }
 
 //FUNCIONES RESPECTIVAS A LA COOKIE
 
-/**
- * Envia los datos de la cookie del usuario que se le pase.
- * @param {String} userActual
- * @param {Number} tiempo
- * @returns {Promise} Promesa que devuelve los datos del usuario actual
- */
-function getDatosCookie(userActual) {
-  let tiempo = 50;
+/** Obtenemos los datos de la cookie del usuario */
+function getDatosCookie(usuarioActual, tiempo = 0) {
   return new Promise((resolv, reject) => {
     setTimeout(() => {
-      let datosUsuario = JSON.parse(Cookies.get(userActual));
+      let datosUsuario = JSON.parse(Cookies.get(usuarioActual));
       resolv(datosUsuario);
     }, tiempo);
 
     setTimeout(() => {
-      let error = new Error('Error al obtener datos de la cookie');
+      let error = new Error("Error al obtener datos de la cookie");
       reject(error);
     }, tiempo * 2);
   });
 }
+
 /**
- * funcion para realizar petición del los datos de la cookie
- * del usuario que está conectado
+ * Guardamos datos en la cookie del usuario atual
+ * @param {Object} objDatos Datos cookie modificados
+ * @param {String} usuarioActual Usuario que modificamos la info
  */
-function cargarPreguntas(retraso = false, tiempo = 0, usuarioActual) {
+function saveDatosCookie(objDatos, usuarioActual) {
+  let strPreguntas = JSON.stringify(objDatos);
+  Cookies.set(usuarioActual, strPreguntas, { expires: 7 });
+}
+
+/**
+ * Funcion para guardar el usuario y sus datos en la cookie
+ * @param {Object} usuarioAGuardar Usuario que guardamos en cookie
+ * @param {*} datosUsuario datos del usuario
+ */
+function guardarUsuarioCookie(usuarioAGuardar, datosUsuario) {
+  let strDatosUsuario = JSON.stringify(datosUsuario);
+
+  Cookies.set(usuarioAGuardar, strDatosUsuario, { expires: 7 });
+  Cookies.set("usuarioActual", usuarioAGuardar);
+}
+
+/**
+ *  Establece una cookie que indica en todo momento cual es el usuario que ha iniciado sesion
+ *  @param {String} usuarioActual Usuario que esta acutualmente
+ */
+function setUsuarioActual(usuarioActual) {
+  Cookies.set("usuarioActual", usuarioActual);
+}
+
+/**
+ *
+ * @returns {String} Devuelve el correo del usuario actual
+ */
+function getUsuarioActual() {
+  return Cookies.get("usuarioActual");
+}
+
+/**
+ *
+ * Funcion para realizar peticion a la cookie para que devuelva los datos guardados
+ *  @param {Boolean} delay tiempo de delay
+ */
+function cargarPreguntas(delay = false, tiempo = 0, usuarioActual) {
   return new Promise((resolv, reject) => {
-    if (retraso) {
+    if (delay) {
       setTimeout(() => {
         let usuario = JSON.parse(Cookies.get(usuarioActual));
         resolv(usuario);
       }, tiempo);
 
       setTimeout(() => {
-        let mensaje = 'Error al obtener las preguntas';
+        let mensaje = "Error";
         reject(mensaje);
       }, tiempo * 2);
     } else {
@@ -74,53 +107,13 @@ function cargarPreguntas(retraso = false, tiempo = 0, usuarioActual) {
   });
 }
 
-/**
- *
- * Guarda los datos en la cookie del usuario que se le pase por paramentro
- * @param {Object} objDatos Datos cookie modificados
- * @param {String} userActual Usuario al que se le modifica su informacion
- */
-function guardarDatosEnCookie(objDatos, userActual) {
-  let strPreguntas = JSON.stringify(objDatos);
-  Cookies.set(userActual, strPreguntas, { expires: 7 });
-}
-
-/**
- * Guarda un usuario en una cookie junto con sus datos como son la fecha de acceso
- *  y sus preguntas
- * @param {Object} userSave Usuario que guardamos en la cookie
- * @param {*} datosUsuario Los datos de dicho usuario
- */
-function saveUserCookie(userSave, datosUsuario) {
-  let strDatosUsuario = JSON.stringify(datosUsuario);
-
-  Cookies.set(userSave, strDatosUsuario);
-  Cookies.set('userActual', userSave);
-}
-
-/**
- *  Establece cookie que indica el usuario que ha iniciado sesion
- *  @param {String} userActual Usuario actual
- */
-function setUserActual(userActual) {
-  Cookies.set('userActual', userActual);
-}
-
-/**
- *
- * @returns {String} Devuelve el correo del usuario actual
- */
-function getuserActual() {
-  return Cookies.get('userActual');
-}
-
 export {
-  getFecha,
-  updateFecha,
   getDatosCookie,
-  guardarDatosEnCookie,
-  saveUserCookie,
-  setUserActual,
-  getuserActual,
+  saveDatosCookie,
+  guardarUsuarioCookie,
+  setUsuarioActual,
+  getUsuarioActual,
   cargarPreguntas,
+  updateFecha,
+  getFechaActual,
 };
