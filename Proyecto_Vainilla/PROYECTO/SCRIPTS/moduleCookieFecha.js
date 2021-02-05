@@ -5,9 +5,9 @@
 function getFechaActual() {
   let hoy = new Date();
   let fecha =
-    hoy.getDate() + "-" + (hoy.getMonth() + 1) + "-" + hoy.getFullYear();
-  let hora = hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
-  let fechaActual = fecha + " " + hora;
+    hoy.getDate() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getFullYear();
+  let hora = hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getSeconds();
+  let fechaActual = fecha + ' ' + hora;
   return fechaActual;
 }
 
@@ -39,7 +39,7 @@ function getDatosCookie(usuarioActual, tiempo = 0) {
     }, tiempo);
 
     setTimeout(() => {
-      let error = new Error("Error al obtener datos de la cookie");
+      let error = new Error('Error al obtener datos de la cookie');
       reject(error);
     }, tiempo * 2);
   });
@@ -64,7 +64,7 @@ function guardarUsuarioCookie(usuarioAGuardar, datosUsuario) {
   let strDatosUsuario = JSON.stringify(datosUsuario);
 
   Cookies.set(usuarioAGuardar, strDatosUsuario, { expires: 7 });
-  Cookies.set("usuarioActual", usuarioAGuardar);
+  Cookies.set('usuarioActual', usuarioAGuardar);
 }
 
 /**
@@ -72,7 +72,7 @@ function guardarUsuarioCookie(usuarioAGuardar, datosUsuario) {
  *  @param {String} usuarioActual Usuario que esta acutualmente
  */
 function setUsuarioActual(usuarioActual) {
-  Cookies.set("usuarioActual", usuarioActual);
+  Cookies.set('usuarioActual', usuarioActual);
 }
 
 /**
@@ -80,7 +80,7 @@ function setUsuarioActual(usuarioActual) {
  * @returns {String} Devuelve el correo del usuario actual
  */
 function getUsuarioActual() {
-  return Cookies.get("usuarioActual");
+  return Cookies.get('usuarioActual');
 }
 
 /**
@@ -97,7 +97,7 @@ function cargarPreguntas(delay = false, tiempo = 0, usuarioActual) {
       }, tiempo);
 
       setTimeout(() => {
-        let mensaje = "Error";
+        let mensaje = 'Error';
         reject(mensaje);
       }, tiempo * 2);
     } else {
