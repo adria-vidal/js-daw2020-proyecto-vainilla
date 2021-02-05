@@ -22,7 +22,7 @@ function updateFecha(userActual) {
 
   //convertimos para poder modificarlo
   let objUsuario = JSON.parse(infoUsuario);
-  objUsuario.fechaEntrada = fechaNow;
+  objUsuario.fechaIn = fechaNow;
   let stringUsuario = JSON.stringify(objUsuario);
 
   //Guardo de nuevo la cookie
@@ -38,7 +38,7 @@ function updateFecha(userActual) {
  * @returns {Promise} Promesa que devuelve los datos del usuario actual
  */
 function getDatosCookie(userActual) {
-    let tiempo = 50;
+  let tiempo = 50;
   return new Promise((resolv, reject) => {
     setTimeout(() => {
       let datosUsuario = JSON.parse(Cookies.get(userActual));
@@ -55,21 +55,21 @@ function getDatosCookie(userActual) {
  * funcion para realizar petición del los datos de la cookie
  * del usuario que está conectado
  */
-function cargarPreguntas(delay = false, userActual, tiempo = 0) {
+function cargarPreguntas(retraso = false, tiempo = 0, usuarioActual) {
   return new Promise((resolv, reject) => {
-    if (delay) {
+    if (retraso) {
       setTimeout(() => {
-        let user = JSON.parse(Cookies.get(userActual));
-        resolv(user);
+        let usuario = JSON.parse(Cookies.get(usuarioActual));
+        resolv(usuario);
       }, tiempo);
 
       setTimeout(() => {
-        let error = 'No se ha podido cargar las preguntas';
-        reject(error);
+        let mensaje = 'Error al obtener las preguntas';
+        reject(mensaje);
       }, tiempo * 2);
     } else {
-      let user = JSON.parse(Cookies.get(userActual));
-      resolv(user);
+      let usuario = JSON.parse(Cookies.get(usuarioActual));
+      resolv(usuario);
     }
   });
 }
@@ -94,7 +94,7 @@ function guardarDatosEnCookie(objDatos, userActual) {
 function saveUserCookie(userSave, datosUsuario) {
   let strDatosUsuario = JSON.stringify(datosUsuario);
 
-  Cookies.set(userSave, strDatosUsuario, { expires: 5 });
+  Cookies.set(userSave, strDatosUsuario);
   Cookies.set('userActual', userSave);
 }
 

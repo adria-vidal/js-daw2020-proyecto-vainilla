@@ -40,9 +40,7 @@ let textoEmail = document.getElementById('email');
 textoEmail.addEventListener(
   'blur',
   (event) => {
-    let pattemail = new RegExp(
-      "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
-    );
+    let pattemail = /\S+@\S+\.\S+/;
 
     /**
      * creamos un mensaje de error si el formato no es el correcto
@@ -69,18 +67,18 @@ textoEmail.addEventListener(
     } else {
       if (!Cookies.get(textoEmail.value)) {
         let datosUser = {
-          fechaEntrada: getFecha(),
+          fechaIn: getFecha(),
           preguntas: [],
         };
         saveUserCookie(textoEmail.value, datosUser);
 
-        var redirecciona = '/PROYECTO/HTML/pantalla2.html';
+        var redirecciona = '../HTML/pantalla2.html';
         location.href = redirecciona;
 
         //en caso de que exista, solo modificamos añadiendo el email
       } else {
         setUserActual(textoEmail.value);
-        var redirecciona = '/PROYECTO/HTML/pantalla2.html';
+        var redirecciona = '../HTML/pantalla2.html';
         location.href = redirecciona;
       }
     }

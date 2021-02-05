@@ -2,45 +2,40 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/PROYECTO/CSS/estilopantalla.css" />
-  <title>Document</title>
-</head>
-
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="../CSS/estilopantalla.css">
+    
 <body>
-  <div id="principal">
-    <form id="formpreguntas">
-      <h2>Preguntas</h2>
-      <br />
-      <label for="pregunta">Pregunta:</label><br />
-      <textarea id="pregunta" name="pregunta" cols="40" rows="10"
-        placeholder="Escribe aquí tu pregunta..."></textarea><br />
+    <main >
+        <form  method="post" action="#" id="formulario">
+            <p>
+                <p for="pregunta">Titulo de la Pregunta</p>
+                <textarea name="pregunta" id="txtTitulo" cols="40" rows="3" ></textarea>
+            </p>
+            <p>
+                Verdadero <input type="radio" name="respuesta" value="verdadero"/>
+                Falso <input type="radio" name="respuesta" value="falso" />
+            </p>
+            <p>
+                <label for="puntuacion">Puntuacion</label>
+                <input type="number" max="9" min="1" id="txtPuntuacion">
+            </p>
+            
+            <button id="btnAtras">Atras</button>
+            <button id="btnGrabar">Grabar</button>
+            <br>
+            <br>
+        </form>
+            <section id="wrapper-Pregunta">
+                <h1 id="cargandoPreguntas">Cargando preguntas...</h1>
+            </section>
+            <div id="mensajeError"></div>
+    </main>
 
-      <br />
-      <p>
-        <label for="true">Verdadero</label>
-        <input type="radio" name="res" value="true" />
-        <label for="false">Falso</label>
-        <input type="radio" name="res" value="false" />
-      </p>
-      <br />
-      <p>
-        <input type="number" min="1" max="9" name="puntuacion" id="puntuacion" placeholder="Puntuación" />
-      </p>
-      <br />
-      <br />
-      <input type="reset" value="Atrás" id="atras" />
-      <input type="submit" value="Guardar" id="guardar" />
-    </form>
-    <div id="container">
-      <p id="cargando">Cargando respuestas..</p>
-      
-    </div>
-    <div id="error"></div>
-  </div>
-
-  <script type="module" src="/PROYECTO/SCRIPTS/pantalla3.js"></script>
+  <script type="module" src="/Proyecto_Vainilla/PROYECTO/SCRIPTS/pantalla3.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 </body>
 

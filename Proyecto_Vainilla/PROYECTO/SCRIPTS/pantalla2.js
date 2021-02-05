@@ -25,8 +25,8 @@ function intro() {
   let promesa = getDatosCookie(saludocookie);
   //Fecha de la ultima vez que entra el usuario
   promesa.then((datosFecha) => {
-    let fechaEntrada = datosFecha.fechaEntrada;
-    parr.textContent = `Ultima vez que entraste: ${fechaEntrada}`;
+    let fechaIn = datosFecha.fechaIn;
+    parr.textContent = `Ultima vez que entraste: ${fechaIn}`;
   });
 
   //-agregamos los elementos al container para mostrar por pantalla
