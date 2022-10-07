@@ -72,13 +72,13 @@ textoEmail.addEventListener(
         };
         guardarUsuarioCookie(textoEmail.value, datosUser);
 
-        var redirecciona = '../HTML/pantalla2.html';
+        var redirecciona = '../pantalla2.html';
         location.href = redirecciona;
 
         //en caso de que exista, solo modificamos añadiendo el email
       } else {
         setUsuarioActual(textoEmail.value);
-        var redirecciona = '../HTML/pantalla2.html';
+        var redirecciona = '../pantalla2.html';
         location.href = redirecciona;
       }
     }

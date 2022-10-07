@@ -36,7 +36,7 @@ button_grabar.addEventListener('click', agregarPregunta);
 /** Evento para volver a pantalla2 al pulsar btn Atras  */
 button_atras.addEventListener('click', (e) => {
   e.preventDefault();
-  var redirecciona = '../HTML/pantalla2.html';
+  var redirecciona = '../pantalla2.html';
   location.href = redirecciona;
 });
 
